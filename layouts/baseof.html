@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "nl" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} - {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="icon" href="{{ "media/wzw_logo.svg" | relURL }}" type="image/svg+xml">
+  {{ with resources.Get "css/main.css" | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{- end }}
+  {{ block "head" . }}{{ end }}
+</head>
+<body class="{{ block "bodyclass" . }}page-template{{ end }}">
+  <a class="skip-link" href="#main">Naar inhoud</a>
+  {{ partial "header.html" . }}
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
+  {{ with resources.Get "js/site.js" | minify | fingerprint -}}
+  <script src="{{ .RelPermalink }}" defer></script>
+  {{- end }}
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

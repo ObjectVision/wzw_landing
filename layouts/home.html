@@ -1,0 +1,20 @@
+{{ define "bodyclass" }}home-template{{ end }}
+{{ define "main" }}
+<section class="hero">
+  <div class="wrapper hero__container">
+    <div class="hero__content">
+      <h1 class="hero__title">{{ .Title }}</h1>
+      {{ with .Params.tagline }}<p class="hero__tagline">{{ . }}</p>{{ end }}
+      <div class="hero__text">{{ .Content }}</div>
+      {{ with .Params.cta_link }}
+      <a href="{{ . | relURL }}" class="btn btn--lg">{{ $.Params.cta_text }}
+        <svg aria-hidden="true" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      {{ end }}
+    </div>
+    {{ with .Params.image }}
+    <figure class="hero__image"><img src="{{ . | relURL }}" alt="" width="1585" height="1082"></figure>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

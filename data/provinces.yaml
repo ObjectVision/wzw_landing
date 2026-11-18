@@ -1,0 +1,30 @@
+# Provinces with a WoonZorgwijzer kaartviewer.
+# id must match the province id in data/nlmap.json.
+# logo: provincial logo shown in the viewer bar.
+# label: optional [x, y] override in map viewBox coordinates; label lines split on "|".
+noord-holland:
+  name: Noord-Holland
+  logo: /media/logos/Provincie-Noord-Holland-Logo.jpg
+  label_text: "Noord-|Holland"
+  variant: https://map.derondekaart.nl/?variant=wzw_noord_holland
+zuid-holland:
+  name: Zuid-Holland
+  logo: /media/logos/Provincie-Zuid-Holland-Logo.jpg
+  label_text: "Zuid-|Holland"
+  variant: https://map.derondekaart.nl/?variant=wzw_zuid_holland
+gelderland:
+  name: Gelderland
+  logo: /media/logos/Provincie-Gelderland-Logo.jpg
+  variant: https://map.derondekaart.nl/?variant=wzw_gelderland
+noord-brabant:
+  name: Noord-Brabant
+  logo: /media/logos/Provincie-Noord-Brabant-Logo.jpg
+  variant: https://map.derondekaart.nl/?variant=wzw_noord_brabant
+zeeland:
+  name: Zeeland
+  logo: /media/logos/Provincie-Zeeland-Logo.jpg
+  variant: https://map.derondekaart.nl/?variant=wzw_zeeland
+drenthe:
+  name: Drenthe
+  logo: /media/logos/logo-drenthe.png
+  variant: https://map.derondekaart.nl/?variant=wzw_drenthe

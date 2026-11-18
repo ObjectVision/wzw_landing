@@ -1,0 +1,51 @@
+baseURL = "https://woonzorgwijzer.nl/"
+locale = "nl-NL"
+defaultContentLanguage = "nl"
+title = "WoonZorgwijzer"
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[params]
+  description = "De WoonZorgwijzer is dé digitale kaart die inzicht geeft in wonen, welzijn en zorg."
+  copyright = "© 2017-2025 WoonZorgwijzer, Alle rechten voorbehouden"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[menus]
+  [[menus.main]]
+    name = "Over"
+    pageRef = "/over"
+    weight = 10
+  [[menus.main]]
+    name = "Kaartviewers"
+    pageRef = "/kaartviewers"
+    weight = 20
+  [[menus.main]]
+    name = "Praktijk"
+    pageRef = "/praktijk"
+    weight = 30
+  [[menus.main]]
+    name = "Achtergrond"
+    pageRef = "/achtergrond"
+    weight = 40
+
+  [[menus.footer]]
+    name = "Aan de slag"
+    pageRef = "/aan-de-slag"
+    weight = 10
+  [[menus.footer]]
+    name = "Voorwaarden"
+    pageRef = "/voorwaarden"
+    weight = 20
+  [[menus.footer]]
+    name = "Proclaimer"
+    pageRef = "/proclaimer"
+    weight = 30
+  [[menus.footer]]
+    name = "Gebruiksvriendelijkheid"
+    pageRef = "/gebruiksvriendelijkheid"
+    weight = 40
+  [[menus.footer]]
+    name = "Contactpersonen"
+    pageRef = "/contactpersonen"
+    weight = 50

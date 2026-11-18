@@ -1,0 +1,35 @@
+{{- /* Inline SVG of the Dutch provinces. Context: dict "class" (string) */ -}}
+{{- $map := hugo.Data.nlmap -}}
+{{- $cfg := hugo.Data.provinces -}}
+<svg class="nlmap {{ .class }}" viewBox="{{ $map.viewBox }}" data-viewbox="{{ $map.viewBox }}" role="group" aria-label="Kaart van Nederland met provincies" preserveAspectRatio="xMidYMid meet">
+  <g class="nlmap__shapes">
+    {{- range $map.provinces }}
+    {{- $p := index $cfg .id }}
+    {{- if $p }}
+    {{- $page := site.GetPage (printf "/kaartviewers/%s" .id) }}
+    <a class="prov prov--active" href="{{ with $page }}{{ .RelPermalink }}{{ end }}" data-province="{{ .id }}" data-name="{{ $p.name }}" data-variant="{{ $p.variant }}"{{ with $p.logo }} data-logo="{{ . | relURL }}"{{ end }} data-bbox="{{ delimit .bbox " " }}" aria-label="WoonZorgwijzer {{ $p.name }} openen">
+      <path d="{{ .d }}"/>
+    </a>
+    {{- else }}
+    <path class="prov" d="{{ .d }}" data-province="{{ .id }}" data-bbox="{{ delimit .bbox " " }}"><title>{{ .name }}</title></path>
+    {{- end }}
+    {{- end }}
+  </g>
+  <g class="nlmap__labels" aria-hidden="true">
+    {{- range $prov := $map.provinces }}
+    {{- $p := index $cfg $prov.id }}
+    {{- $text := $prov.name }}
+    {{- with $p }}{{ with .label_text }}{{ $text = . }}{{ end }}{{ end }}
+    {{- $lines := split $text "|" }}
+    {{- $first := sub 0.35 (mul 0.55 (sub (len $lines) 1)) }}
+    {{- with $prov.label }}
+    {{- $x := index . 0 }}
+    <text class="label{{ if $p }} label--active{{ end }}" data-province="{{ $prov.id }}" x="{{ $x }}" y="{{ index . 1 }}" text-anchor="middle">
+      {{- range $i, $l := $lines -}}
+      <tspan x="{{ $x }}" dy="{{ if eq $i 0 }}{{ printf "%.2f" $first }}{{ else }}1.1{{ end }}em">{{ $l }}</tspan>
+      {{- end -}}
+    </text>
+    {{- end }}
+    {{- end }}
+  </g>
+</svg>

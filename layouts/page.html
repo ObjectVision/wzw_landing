@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="content">
+  <div class="wrapper">
+    <header class="content__header">
+      <h1 class="content__title">{{ .Title }}</h1>
+    </header>
+    <div class="content__entry{{ with .Params.image }} content__entry--with-image{{ end }}">
+      {{ with .Params.image }}
+      <figure class="content__image"><img src="{{ . | relURL }}" alt="" loading="lazy"></figure>
+      {{ end }}
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+{{ end }}

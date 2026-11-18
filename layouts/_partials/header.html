@@ -1,0 +1,21 @@
+<header class="header" id="site-header">
+  <div class="wrapper header__inner">
+    <a class="header__logo" href="{{ "/" | relURL }}">
+      <img src="{{ "media/wzw_logo.svg" | relURL }}" alt="WoonZorgwijzer" width="314" height="82">
+    </a>
+    <button class="navbar__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="navbar" id="site-nav" aria-label="Hoofdmenu">
+      <ul class="navbar__menu">
+        {{- $current := . }}
+        {{- range site.Menus.main }}
+        {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) }}
+        {{- with .Page }}{{ if and (not $active) (eq .Section $current.Section) (ne .Section "") }}{{ $active = true }}{{ end }}{{ end }}
+        <li{{ if $active }} class="active"{{ end }}><a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+      <a href="{{ "contact/" | relURL }}" class="btn header__cta">Contact</a>
+    </nav>
+  </div>
+</header>

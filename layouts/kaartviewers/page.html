@@ -1,0 +1,5 @@
+{{ define "bodyclass" }}kaart-template viewer-open{{ end }}
+{{ define "main" }}
+{{ partial "kaart.html" (dict "section" .CurrentSection "open" .Params.province) }}
+{{ end }}
+{{ define "scripts" }}{{ partial "kaart-script.html" . }}{{ end }}

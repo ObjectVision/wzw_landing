@@ -1,0 +1,5 @@
+{{ define "bodyclass" }}kaart-template{{ end }}
+{{ define "main" }}
+{{ partial "kaart.html" (dict "section" . "open" "") }}
+{{ end }}
+{{ define "scripts" }}{{ partial "kaart-script.html" . }}{{ end }}
