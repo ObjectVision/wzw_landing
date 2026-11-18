@@ -31,13 +31,6 @@
       {{- end }}
     </div>
     <div class="viewer__loader" role="status"><span class="spinner" aria-hidden="true"></span><span class="viewer__loader-text">Kaart laden…</span></div>
-    <div class="viewer__bar">
-      <a class="viewer__back" href="{{ $section.RelPermalink }}">
-        <svg aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span>Terug naar het overzicht</span>
-      </a>
-      {{ with $p.logo }}<img class="viewer__logo" src="{{ . | relURL }}" alt="Provincie {{ $p.name }}">{{ else }}<img class="viewer__logo" alt="" hidden>{{ end }}
-      <h2 class="viewer__title">{{ with $p.name }}WoonZorgwijzer {{ . }}{{ end }}</h2>
-    </div>
+    <h2 class="viewer__title sr-only">{{ with $p.name }}WoonZorgwijzer {{ . }}{{ end }}</h2>
   </div>
 </section>

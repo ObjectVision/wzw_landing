@@ -9,8 +9,7 @@
   const zoomBox = viewer.querySelector(".viewer__zoom");
   const frameBox = viewer.querySelector(".viewer__frame");
   const titleEl = viewer.querySelector(".viewer__title");
-  const logoEl = viewer.querySelector(".viewer__logo");
-  const backLink = viewer.querySelector(".viewer__back");
+  const logoEl = document.querySelector(".header__province");
   const homeUrl = root.dataset.home;
   const homeTitle = root.dataset.homeTitle;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -127,12 +126,29 @@
 
   function setChrome(p) {
     titleEl.textContent = "WoonZorgwijzer " + p.name;
-    if (p.logo) {
-      logoEl.src = p.logo;
-      logoEl.alt = "Provincie " + p.name;
-    }
-    logoEl.hidden = !p.logo;
+    showLogo(p);
     document.title = "WoonZorgwijzer " + p.name + " - " + homeTitle.split(" - ").pop();
+  }
+
+  // Province logo next to the site logo in the header.
+  let logoTimer;
+  function showLogo(p) {
+    if (!logoEl) return;
+    clearTimeout(logoTimer);
+    if (!p.logo) return hideLogo();
+    if (logoEl.getAttribute("src") !== p.logo) {
+      logoEl.classList.remove("is-visible");
+      logoEl.src = p.logo;
+    }
+    logoEl.alt = "Provincie " + p.name;
+    logoEl.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => logoEl.classList.add("is-visible")));
+  }
+  function hideLogo() {
+    if (!logoEl) return;
+    logoEl.classList.remove("is-visible");
+    clearTimeout(logoTimer);
+    logoTimer = setTimeout(() => { if (!current) logoEl.hidden = true; }, 300);
   }
 
   // ---------- open / close ----------
@@ -173,7 +189,6 @@
     }
 
     viewer.classList.add("is-zoomed");
-    backLink.focus({ preventScroll: true });
     await loaded;
     if (my !== token) return;
     viewer.classList.add("is-ready");
@@ -185,6 +200,7 @@
     const p = provinces[current];
     current = null;
     document.title = homeTitle;
+    hideLogo();
 
     viewer.classList.remove("is-ready", "is-zoomed");
 
@@ -227,8 +243,12 @@
     open(a.dataset.province);
   });
 
-  backLink.addEventListener("click", (e) => {
+  // Header links to the overview (e.g. menu item "Kaartviewers") return without a page load.
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[href]");
+    if (!a || !current || root.contains(a)) return;
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (normalize(new URL(a.href, location.href).pathname) !== normalize(homeUrl)) return;
     e.preventDefault();
     goHome();
   });

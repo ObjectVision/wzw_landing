@@ -3,6 +3,13 @@
     <a class="header__logo" href="{{ "/" | relURL }}">
       <img src="{{ "media/wzw_logo.svg" | relURL }}" alt="WoonZorgwijzer" width="314" height="82">
     </a>
+    {{- /* Province logo: shown while a province kaartviewer is open (set by kaart.js, or server-side on deep links). */}}
+    {{- $prov := cond (and (eq .Section "kaartviewers") .IsPage) (index hugo.Data.provinces (.Params.province | default "")) dict }}
+    {{- with $prov.logo }}
+    <img class="header__province is-visible" src="{{ . | relURL }}" alt="Provincie {{ $prov.name }}">
+    {{- else }}{{ if eq .Section "kaartviewers" }}
+    <img class="header__province" alt="" hidden>
+    {{- end }}{{ end }}
     <button class="navbar__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span><span></span>
     </button>
